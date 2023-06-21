@@ -1,0 +1,22 @@
+{
+  "name": "nexus-prisma",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.22",
+    "prisma": "^4.15.0"
+  },
+  "dependencies": {
+    "@nexus/schema": "^0.20.1",
+    "@prisma/client": "^4.15.0",
+    "apollo-server": "^3.12.0"
+  }
+}
