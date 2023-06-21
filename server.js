@@ -48,7 +48,7 @@ const Query = queryType({
         t.field('singleClient', {
             type: 'client',
             args: {
-                id: stringArg({required: true}),
+                id: nonNull(stringArg()),
             },
             resolve: (_, args) => {
                 return prisma.client.findUnique({
@@ -69,7 +69,7 @@ const Query = queryType({
         t.field('singleProfile', {
             type: 'profile',
             args: {
-                id: stringArg({required: true}),
+                id: nonNull(stringArg()),
             },
             resolve: (_, args) => {
                 return prisma.profile.findUnique({
@@ -94,8 +94,8 @@ const Mutation = mutationType({
         t.field('createClient', {
             type: 'client',
             args: {
-                name: stringArg({required: true}),
-                email: stringArg({required: true})
+                name: nonNull(stringArg()),
+                email: nonNull(stringArg())
             },
             resolve: async (_parent, args) => {
                 return prisma.client.create({
@@ -110,8 +110,8 @@ const Mutation = mutationType({
         t.field('createProfile', {
             type: 'profile',
             args: {
-                bio:nonNull(stringArg()),
-                client_id: stringArg({required: true}),
+                bio: nonNull(stringArg()),
+                client_id: nonNull(stringArg()),
             },
             resolve: (_parent, args) => {
                 return prisma.profile.create({
@@ -130,7 +130,7 @@ const Mutation = mutationType({
         t.field('deleteClient', {
             type: 'client',
             args: {
-                id: stringArg({required: true}),
+                id: nonNull(stringArg()),
             },
             resolve:async (_, args) => {
                await prisma.profile.deleteMany({
@@ -144,6 +144,20 @@ const Mutation = mutationType({
                     },
                 });  
             }
+        });
+
+        t.field('deleteProfile', {
+            type: 'profile',
+            args: {
+                id: nonNull(stringArg()),
+            },
+            resolve: async(_, args) => {
+                return await prisma.profile.delete({
+                    where: {
+                        id: args.id,
+                    },
+                });
+            },
         });
     },
 });
